@@ -3,6 +3,9 @@
 	text-align: center;
 }
 
+.news-list-scroll-area {
+}
+
 .news-list-item {
 	position: relative;
 	padding: 8px 0;
@@ -10,7 +13,6 @@
 	border-bottom-width: 1px;
 	border-bottom-color: #E0E0E0;
 	border-bottom-style: solid;
-	width: 100%;
 }
 
 .news-list-item-img {
@@ -22,14 +24,14 @@
 
 .news-list-item-body {
 	padding-left: 408px;
+	min-width: 400px;
 	height: 300px;
 	overflow: hidden;
-	min-width: 400px;
 }
 
 .news-list-item-title {
-	color: #468DBC;
 	padding-bottom: 8px;
+	color: #468DBC;
 }
 
 .news-list-item-time {
@@ -52,7 +54,7 @@
 .news-details-preview {
 	position: relative;
 	min-width: 808px;
-	background: red;
+	background: #E4F0F6;
 }
 
 .news-details-short-text {

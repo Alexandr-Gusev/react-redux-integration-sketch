@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"bd": "webpack --config webpack.config.js --mode development --devtool source-map",
+		"bd": "webpack --config webpack.config.js --mode development",
 		"bp": "webpack --config webpack.config.js --mode production",
 		"s": "node dist/server.js"
 	},

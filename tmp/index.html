@@ -25,7 +25,7 @@
 		<script>
 			window.qsTr = function(s) {return s;};
 			var e = new Event("set-user-props");
-			e.userProps = {cms_url: "http://192.168.1.38"};
+			e.userProps = {cms_url: "http://localhost:1337"};
 			document.dispatchEvent(e);
 			document.dispatchEvent(new Event("news-render"));
 			show("notifications");

@@ -23,7 +23,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk))
 document.addEventListener(
 	"set-user-props",
 	(e) => {
-		store.dispatch(setUserProps(e.userProps));
+		store.dispatch(setUserProps(e.userProps))
 	}
 )
 

@@ -6,64 +6,49 @@ const SHOW_DETAILS = "News/SHOW_DETAILS"
 const HIDE_DETAILS = "News/HIDE_DETAILS"
 const LOADED = "News/LOADED"
 
-export function showDetails(id) {
-	return {type: SHOW_DETAILS, id}
-}
+export const showDetails = (id) => ({type: SHOW_DETAILS, id})
+export const hideDetails = () => ({type: HIDE_DETAILS})
+export const loaded = (items) => ({type: LOADED, items})
 
-export function hideDetails() {
-	return {type: HIDE_DETAILS}
-}
+const getImgSrc = (cms_url, item) => item.Image.url.indexOf("/") === 0 ? cms_url + item.Image.url : item.Image.url
 
-export function loaded(news) {
-	return {type: LOADED, news}
-}
-
-function getImgSrc(cms_url, item) {
-	return item.Image.url.indexOf("/") === 0 ? cms_url + item.Image.url : item.Image.url
-}
-
-export function load(firstNewsId) {
-	return (dispatch, getState) => {
-		const {common: {userProps: {cms_url}}} = getState()
-		const {reqKey, promise} = sendReq(
-			cms_url + "/news.json", // "/news?_limit=" + PAGE_SIZE + "&_sort=id:desc" + (firstNewsId === undefined ? "" : "&id_lt=" + firstNewsId),
-			{
-				method: "POST"
+export const load = (firstNewsId) => (dispatch, getState) => {
+	const {common: {userProps: {cms_url}}} = getState()
+	const {reqKey, promise} = sendReq(
+		cms_url + "/news?_limit=" + PAGE_SIZE + "&_sort=id:desc" + (firstNewsId === undefined ? "" : "&id_lt=" + firstNewsId)
+	)
+	promise.then(
+		response => response.json(),
+		error => ({error})
+	)
+	.then(
+		json => {
+			if (!Array.isArray(json)) {
+				throw JSON.stringify(json)
 			}
-		)
-		promise.then(
-			response => response.json(),
-			error => ({error})
-		)
-		.then(
-			json => {
-				if (!Array.isArray(json)) {
-					console.error("Unexpected response: " + json.toString())
-				} else {
-					dispatch(loaded(json.map(item => ({
-						id: item.id,
-						time: item.created_at,
-						title: item.Title,
-						shortText: item.ShortText,
-						longText: item.LongText,
-						imgSrc: getImgSrc(cms_url, item)
-					}))))
-				}
-			},
-			error => {
-				console.error("Unexpected response: " + error.toString())
-			}
-		)
-	}
+			dispatch(
+				loaded(
+					json.map(item => ({
+						...item,
+						created_at_local: new Date(item.created_at).toLocaleDateString(),
+						Image_url: getImgSrc(cms_url, item)
+					}))
+				)
+			)
+		},
+		error => {
+			console.error("Unexpected response: " + JSON.stringify(error))
+		}
+	)
 }
 
 const defaultState = {
 	showDetails: false,
 	selectedItemId: undefined,
-	news: []
+	items: []
 }
 
-export function newsReducer(state = defaultState, action) {
+export const newsReducer = (state = defaultState, action) => {
 	switch (action.type) {
 		case SHOW_DETAILS:
 			return {
@@ -79,7 +64,7 @@ export function newsReducer(state = defaultState, action) {
 		case LOADED:
 			return {
 				...state,
-				news: [...state.news, ...action.news]
+				items: [...state.items, ...action.items]
 			}
 		default:
 			return state

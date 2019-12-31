@@ -6,18 +6,18 @@ import {showDetails} from "./ducks"
 
 export const ListItem = connect(
 	null,
-	dispatch => {
-		return {
-			onItemClick: id => dispatch(showDetails(id))
-		}
-	}
-)(({id, time, title, shortText, imgSrc, onItemClick}) => (
-	<div id={"news_list_item_" + id} className="news-list-item" onClick={() => onItemClick(id)}>
-		<img className="news-list-item-img" src={imgSrc} />
-		<div className="news-list-item-body">
-			<div className="news-list-item-title">{title}</div>
-			<div className="news-list-item-time">{time}</div>
-			<div className="news-list-item-short-text">{shortText}</div>
+	dispatch => ({
+		onItemClick: id => dispatch(showDetails(id))
+	})
+)(
+	({id, created_at_local, Title, ShortText, Image_url, onItemClick}) => (
+		<div id={"news_list_item_" + id} className="news-list-item" onClick={() => onItemClick(id)}>
+			<img className="news-list-item-img" src={Image_url} />
+			<div className="news-list-item-body">
+				<div className="news-list-item-title">{Title}</div>
+				<div className="news-list-item-time">{created_at_local}</div>
+				<div className="news-list-item-short-text">{ShortText}</div>
+			</div>
 		</div>
-	</div>
-))
+	)
+)

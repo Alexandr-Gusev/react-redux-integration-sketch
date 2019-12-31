@@ -4,7 +4,7 @@ import fetch from "cross-fetch"
 let requestCount = 0
 let requests = {}
 
-export function abortReq(reqKey, message) {
+export const abortReq = (reqKey, message) => {
 	const request = requests[reqKey]
 	if (request) {
 		request.reject(message)
@@ -13,7 +13,7 @@ export function abortReq(reqKey, message) {
 	}
 }
 
-export function sendReq(url, options, timeout = 5000) {
+export const sendReq = (url, options, timeout = 5000) => {
 	let request = {
 		controller: new AbortController()
 	}
