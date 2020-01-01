@@ -4,30 +4,45 @@
 	<script type="text/javascript" src="bundle.js"></script>
 	<script>
 		function show(page) {
+			if (page === "news") {
+				var e = new Event("news");
+				e.action = "update";
+				document.dispatchEvent(e);
+			}
 			var pages = document.getElementById("pages");
 			for (var i = 0; i < pages.children.length; i++) {
-				document.getElementById(pages.children[i].id + "_item").style.color = pages.children[i].id === page ? "red" : "black";
-				pages.children[i].style.display = pages.children[i].id === page ? "block" : "none";
+				document.getElementById(pages.children[i].id + "_item").style.background = pages.children[i].id === page ? "#C0C0C0" : "";
+				pages.children[i].style.display = pages.children[i].id === page ? "" : "none";
 			}
 		}
 	</script>
 </head>
 <body>
-	<div style="display: flex; width: 100%; height: 100%;">
-		<div style="width: 200px; height: 100%; overflow: auto;">
-			<div id="notifications_item" style="width: 100%;" onclick="show('notifications');">Notifications</div>
-			<div id="news_item" style="width: 100%;" onclick="show('news');">News</div>
+	<div style="height: 100%; display: flex;">
+		<div>
+			<div style="width: 200px; padding-right: 8px;">
+				<div id="notifications_item" onclick="show('notifications');">Notifications</div>
+				<div id="news_item" onclick="show('news');">News</div>
+			</div>
 		</div>
-		<div id="pages" style="position: relative; width: 100%; height: 100%; overflow: auto;">
-			<div id="notifications" style="display: none; position: absolute; left: 0; top: 0; width: 100%; height: 100%;">Notifications</div>
-			<div id="news" style="display: none; position: absolute; left: 0; top: 0; width: 100%; height: 100%;">News</div>
+		<div id="pages" style="flex: 1 1 auto;">
+			<div id="notifications">Notifications</div>
+			<div id="news">News</div>
 		</div>
 		<script>
 			window.qsTr = function(s) {return s;};
-			var e = new Event("set-user-props");
+			
+			var e;
+			
+			e = new Event("user-props");
+			e.action = "set";
 			e.userProps = {cms_url: "http://localhost:1337"};
 			document.dispatchEvent(e);
-			document.dispatchEvent(new Event("news-render"));
+			
+			e = new Event("news");
+			e.action = "render";
+			document.dispatchEvent(e);
+			
 			show("notifications");
 		</script>
 	</div>

@@ -1,6 +1,6 @@
 const SET_USER_PROPS = "common/SET_USER_PROPS"
 
-export const setUserProps = (props) => ({type: SET_USER_PROPS, props})
+export const setUserProps = props => ({type: SET_USER_PROPS, props})
 
 const defaultState = {}
 

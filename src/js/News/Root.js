@@ -1,6 +1,5 @@
 import React from "react"
 
-import {useEffect} from "react"
 import {connect} from "react-redux"
 
 import {load} from "./ducks"
@@ -11,14 +10,14 @@ import "../../css/news.css"
 
 export const Root = connect(
 	state => ({
-		showDetails: state.news.showDetails
+		showDetails: state.news.showDetails,
+		selectedItem: state.news.selectedItem
 	}),
 	dispatch => ({
-		onGetMoreClick: (firstNewsId) => dispatch(load(firstNewsId))
+		onGetMoreClick: firstNewsId => dispatch(load(firstNewsId))
 	})
 )(
-	({showDetails, onGetMoreClick}) => {
-		useEffect(() => onGetMoreClick(), [])
+	({showDetails, selectedItem, onGetMoreClick}) => {
 		return (
 			<div>
 				<div style={{display: showDetails ? "" : "none"}}>

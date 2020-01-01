@@ -8,7 +8,7 @@ import {Provider} from "react-redux"
 import {ThemeProvider} from "@material-ui/core/styles"
 
 import {commonReducer, setUserProps} from "./common"
-import {newsReducer, News} from "./News"
+import {newsReducer, News, load} from "./News"
 
 import {mainTheme} from "./themes"
 import "../css/common.css"
@@ -21,24 +21,35 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 document.addEventListener(
-	"set-user-props",
-	(e) => {
-		store.dispatch(setUserProps(e.userProps))
+	"user-props",
+	e => {
+		switch (e.action) {
+			case "set":
+				store.dispatch(setUserProps(e.userProps))
+				break
+		}
 	}
 )
 
 document.addEventListener(
-	"news-render",
-	() => {
-		render(
-			<Provider store={store}>
-				<ThemeProvider theme={mainTheme}>
-					<div className="root">
-						<News />
-					</div>
-				</ThemeProvider>
-			</Provider>,
-			document.getElementById("news")
-		)
+	"news",
+	e => {
+		switch (e.action) {
+			case "render":
+				render(
+					<Provider store={store}>
+						<ThemeProvider theme={mainTheme}>
+							<div className="root">
+								<News />
+							</div>
+						</ThemeProvider>
+					</Provider>,
+					document.getElementById("news")
+				)
+				break
+			case "update":
+				store.dispatch(load())
+				break
+		}
 	}
 )

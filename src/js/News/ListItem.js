@@ -10,13 +10,15 @@ export const ListItem = connect(
 		onItemClick: id => dispatch(showDetails(id))
 	})
 )(
-	({id, created_at_local, Title, ShortText, Image_url, onItemClick}) => (
-		<div id={"news_list_item_" + id} className="news-list-item" onClick={() => onItemClick(id)}>
-			<img className="news-list-item-img" src={Image_url} />
+	({item, onItemClick}) => (
+		<div id={"news_list_item_" + item.id} className="news-list-item" onClick={() => onItemClick(item)}>
+			<div>
+				<img className="news-list-item-img" src={item.Image_url} />
+			</div>
 			<div className="news-list-item-body">
-				<div className="news-list-item-title">{Title}</div>
-				<div className="news-list-item-time">{created_at_local}</div>
-				<div className="news-list-item-short-text">{ShortText}</div>
+				<div className="news-list-item-title">{item.Title}</div>
+				<div className="news-list-item-time">{item.created_at_local}</div>
+				<div className="news-list-item-short-text">{item.ShortText}</div>
 			</div>
 		</div>
 	)

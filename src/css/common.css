@@ -1,3 +1,89 @@
 .root {
 	font-family: Roboto, Helvetica, Arial, sans-serif;
 }
+
+.wait-all-img-wrapper {
+	padding-top: 10%;
+	text-align: center;
+}
+
+.wait-all-img {
+	width: 80px;
+}
+
+.wait-slice-img {
+	width: 36px;
+}
+
+.error-all-body {
+	padding-top: 10%;
+	text-align: center;
+}
+
+.error-all-img {
+}
+
+.error-all-text {
+	padding: 16px 0;
+}
+
+.fade-out {
+	animation: fadeOut ease 5s;
+	-webkit-animation: fadeOut ease 5s;
+	-moz-animation: fadeOut ease 5s;
+	-o-animation: fadeOut ease 5s;
+	-ms-animation: fadeOut ease 5s;
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.2;
+	}
+}
+
+@-webkit-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.2;
+	}
+}
+
+@-moz-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.2;
+	}
+}
+
+@-o-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.2;
+	}
+}
+
+@-ms-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.2;
+	}
+}
+
+.error-slice-text-wrapper {
+	height: 36px;
+	color: red;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

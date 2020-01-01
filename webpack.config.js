@@ -2,6 +2,7 @@ const path = require("path")
 
 const {CleanWebpackPlugin} = require("clean-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 
 module.exports = (env, argv) => {
 	let config = {
@@ -21,6 +22,8 @@ module.exports = (env, argv) => {
 					test: /\.(js|jsx)$/,
 					exclude: /node_modules/,
 					use: [
+						"cache-loader",
+						"thread-loader",
 						{
 							loader: "babel-loader",
 							options: {
@@ -31,11 +34,16 @@ module.exports = (env, argv) => {
 				},
 				{
 					test: /\.(svg|png|jpg|gif|ico|webm|mp4)$/,
-					use: ["file-loader"]
+					use: [
+						"file-loader"
+					]
 				},
 				{
 					test: /\.css$/,
-					use: [MiniCssExtractPlugin.loader, "css-loader"]
+					use: [
+						MiniCssExtractPlugin.loader,
+						"css-loader"
+					]
 				}
 			]
 		},
@@ -46,6 +54,11 @@ module.exports = (env, argv) => {
 	}
 	if (argv.mode === "development") {
 		config.devtool = "source-map"
+	}
+	if (argv.mode === "production") {
+		config.optimization = {
+			minimizer: [new UglifyJsPlugin()]
+		}
 	}
 	return config
 }
