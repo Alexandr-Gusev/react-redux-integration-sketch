@@ -6,7 +6,7 @@ import {load} from "./ducks"
 import {Details} from "./Details"
 import {List} from "./List"
 
-import "../../css/news.css"
+import "../../css/News.css"
 
 export const Root = connect(
 	state => ({

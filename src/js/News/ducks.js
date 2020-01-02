@@ -10,6 +10,9 @@ const HIDE_ERROR_SLICE = "News/HIDE_ERROR_SLICE"
 const SHOW_DETAILS = "News/SHOW_DETAILS"
 const HIDE_DETAILS = "News/HIDE_DETAILS"
 const LOADED = "News/LOADED"
+const SHOW_POPUP = "News/SHOW_POPUP"
+const HIDE_POPUP = "News/HIDE_POPUP"
+const SHOW_NEWS = "News/SHOW_NEWS"
 
 export const showWaitAll = () => ({type: SHOW_WAIT_ALL})
 export const showErrorAll = () => ({type: SHOW_ERROR_ALL})
@@ -22,9 +25,15 @@ export const loaded = items => ({type: LOADED, items})
 
 const getImgSrc = (cms_url, item) => item.Image.url.indexOf("/") === 0 ? cms_url + item.Image.url : item.Image.url
 
+const prepareItem = (cms_url, item) => ({
+	...item,
+	created_at_local: new Date(item.created_at).toLocaleDateString(),
+	Image_url: getImgSrc(cms_url, item)
+})
+
 export const load = firstNewsId => (dispatch, getState) => {
 	const {common: {userProps: {cms_url}}} = getState()
-	const {reqKey, promise} = sendReq(
+	const {promise} = sendReq(
 		cms_url + "/news?_limit=" + (PAGE_SIZE + 1) + "&_sort=id:desc" + (firstNewsId === undefined ? "" : "&id_lt=" + firstNewsId)
 	)
 	dispatch(firstNewsId ? showWaitSlice() : showWaitAll())
@@ -40,11 +49,7 @@ export const load = firstNewsId => (dispatch, getState) => {
 			dispatch(
 				loaded(
 					json.map(
-						item => ({
-							...item,
-							created_at_local: new Date(item.created_at).toLocaleDateString(),
-							Image_url: getImgSrc(cms_url, item)
-						})
+						item => prepareItem(cms_url, item)
 					)
 				)
 			)
@@ -59,6 +64,100 @@ export const load = firstNewsId => (dispatch, getState) => {
 	)
 }
 
+export const showPopupIfNeeded = () => (dispatch, getState) => {
+	const {common: {userProps: {cms_url}}} = getState()
+
+	const getLastUnreadNews = lastReadNewsId => {
+		const {promise} = sendReq(cms_url + "/news?_limit=1&_sort=created_at:DESC&id_gt=" + lastReadNewsId)
+		promise
+		.then(
+			response => response.json()
+		)
+		.then(
+			json => {
+				if (!Array.isArray(json)) {
+					throw "Unexpected response: " + JSON.stringify(json)
+				}
+				if (json.length) {
+					dispatch(
+						showPopup(
+							prepareItem(cms_url, json[0])
+						)
+					)
+				}			
+			}
+		)
+		.then(
+			null,
+			error => {
+				console.error("Unexpected response: ", error)
+			}
+		)
+	}
+
+	const getUnreadNewsCount = lastReadNewsId => {
+		const {promise} = sendReq(cms_url + "/news/count?id_gt=" + lastReadNewsId)
+		promise
+		.then(
+			response => response.text()
+		)
+		.then(
+			text => {
+				const unreadNewsCount = parseInt(text)
+				
+				let e = new Event("legacy-news")
+				e.action = "set-unread-news-count"
+				e.unreadNewsCount = unreadNewsCount
+				document.dispatchEvent(e)
+				
+				if (unreadNewsCount > 0) {
+					getLastUnreadNews(lastReadNewsId)
+				}
+			}
+		)
+		.then(
+			null,
+			error => {
+				console.error("Unexpected response: ", error)
+			}
+		)
+	}
+
+	const getLastReadNewsId = () => {
+		const {promise} = sendReq("get-last-news-id")
+		promise
+		.then(
+			response => response.json()
+		)
+		.then(
+			json => {
+				if (json.success) {
+					getUnreadNewsCount(json.id)
+				}
+			}
+		)
+		.then(
+			null,
+			error => {
+				console.error("Unexpected response: ", error)
+			}
+		)
+	}
+	
+	//getLastReadNewsId()
+	getUnreadNewsCount(0)
+}
+
+export const showPopup = item => ({type: SHOW_POPUP, item})
+export const hidePopup = () => ({type: HIDE_POPUP})
+
+export const showNews = () => dispatch => {
+	dispatch(hidePopup())
+	let e = new Event("legacy-news")
+	e.action = "show"
+	document.dispatchEvent(e)
+}
+
 const defaultState = {
 	showWaitAll: false,
 	showErrorAll: false,
@@ -67,7 +166,8 @@ const defaultState = {
 	showDetails: false,
 	selectedItem: {},
 	items: [],
-	moreItemsAvailable: false
+	moreItemsAvailable: false,
+	popupItem: undefined
 }
 
 const appendItems = (items, slice) => {
@@ -135,6 +235,16 @@ export const newsReducer = (state = defaultState, action) => {
 				showWaitSlice: false,
 				items: appendItems(state.items, action.items),
 				moreItemsAvailable: action.items.length > PAGE_SIZE
+			}
+		case SHOW_POPUP:
+			return {
+				...state,
+				popupItem: action.item
+			}
+		case HIDE_POPUP:
+			return {
+				...state,
+				popupItem: undefined
 			}
 		default:
 			return state

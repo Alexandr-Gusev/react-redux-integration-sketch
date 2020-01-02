@@ -6,11 +6,11 @@ import {connect} from "react-redux"
 import {Button} from "@material-ui/core"
 
 import {load, hideErrorSlice} from "./ducks"
-import {WaitAll} from "./WaitAll"
-import {ErrorAll} from "./ErrorAll"
+import {WaitAll} from "../utils/WaitAll"
+import {ErrorAll} from "../utils/ErrorAll"
 import {ListItem} from "./ListItem"
-import {WaitSlice} from "./WaitSlice"
-import {ErrorSlice} from "./ErrorSlice"
+import {WaitSlice} from "../utils/WaitSlice"
+import {ErrorSlice} from "../utils/ErrorSlice"
 
 export const List = connect(
 	state => ({
@@ -57,14 +57,14 @@ export const List = connect(
 				<div style={{display: showErrorAll ? "" : "none"}}>
 					<ErrorAll />
 				</div>
-				<div className="news-wrapper" style={{display: !showWaitAll && !showErrorAll ? "" : "none"}}>
-					<h1 className="news-header">{qsTr("News")}</h1>
-					<div className="news-body">
+				<div className="News-wrapper" style={{display: !showWaitAll && !showErrorAll ? "" : "none"}}>
+					<h1 className="News-header">{qsTr("News")}</h1>
+					<div className="News-body">
 						{items.map(item => <ListItem key={item.id} item={item} />)}
 						{
 							moreItemsAvailable &&
 							(
-								<div className="news-list-get-more">
+								<div className="News-list-get-more">
 									<div style={{display: showWaitSlice ? "" : "none"}}>
 										<WaitSlice />
 									</div>

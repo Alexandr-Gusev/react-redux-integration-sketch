@@ -1,6 +1,5 @@
 import React from "react"
 
-import {useState} from "react"
 import {connect} from "react-redux"
 
 import {Button} from "@material-ui/core"
@@ -17,25 +16,25 @@ export const Details = connect(
 )(
 	({item, onAllNewsClick}) => (
 		<div>
-			<div className="news-details-header">
-				<div className="news-details-title">{item.Title}</div>
-				<div className="news-details-all-news">
+			<div className="News-details-header">
+				<div className="News-details-title">{item.Title}</div>
+				<div className="News-details-all-news">
 					<Button variant="outlined" color="primary" onClick={() => onAllNewsClick()}>{qsTr("All news")}</Button>
 				</div>
 			</div>
-			<div className="news-details-body-prefix">
-				<div className="news-details-short-text">
+			<div className="News-details-header-suffix">
+				<div className="News-details-short-text">
 					<div>
-						<img className="news-details-quotes" src="/img2/quotes.svg" />
+						<img className="News-details-quotes" src="/img2/quotes.svg" />
 					</div>
 					{item.ShortText}
 				</div>
 				<div>
-					<img className="news-details-img" src={item.Image_url} />
+					<img className="News-details-img" src={item.Image_url} />
 				</div>
 			</div>
-			<div className="news-details-long-text">{item.LongText}</div>
-			<div className="news-details-time">{qsTr("Date") + ": " + item.created_at_local}</div>
+			<div className="News-details-long-text">{item.LongText}</div>
+			<div className="News-details-time">{qsTr("Date") + ": " + item.created_at_local}</div>
 		</div>
 	)
 )

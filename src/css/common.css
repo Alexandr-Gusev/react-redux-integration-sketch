@@ -2,28 +2,28 @@
 	font-family: Roboto, Helvetica, Arial, sans-serif;
 }
 
-.wait-all-img-wrapper {
+.WaitAll-img-wrapper {
 	padding-top: 10%;
 	text-align: center;
 }
 
-.wait-all-img {
+.WaitAll-img {
 	width: 80px;
 }
 
-.wait-slice-img {
+.WaitSlice-img {
 	width: 36px;
 }
 
-.error-all-body {
+.ErrorAll-body {
 	padding-top: 10%;
 	text-align: center;
 }
 
-.error-all-img {
+.ErrorAll-img {
 }
 
-.error-all-text {
+.ErrorAll-text {
 	padding: 16px 0;
 }
 
@@ -80,7 +80,7 @@
 	}
 }
 
-.error-slice-text-wrapper {
+.ErrorSlice-text-wrapper {
 	height: 36px;
 	color: red;
 	display: flex;

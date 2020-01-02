@@ -7,8 +7,8 @@ import {Provider} from "react-redux"
 
 import {ThemeProvider} from "@material-ui/core/styles"
 
-import {commonReducer, setUserProps} from "./common"
-import {newsReducer, News, load} from "./News"
+import {commonReducer, setUserProps} from "./user-props"
+import {newsReducer, News, NewsPopup, load, showPopupIfNeeded} from "./News"
 
 import {mainTheme} from "./themes"
 import "../css/common.css"
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 document.addEventListener(
-	"user-props",
+	"react-user-props",
 	e => {
 		switch (e.action) {
 			case "set":
@@ -32,7 +32,7 @@ document.addEventListener(
 )
 
 document.addEventListener(
-	"news",
+	"react-news",
 	e => {
 		switch (e.action) {
 			case "render":
@@ -46,9 +46,22 @@ document.addEventListener(
 					</Provider>,
 					document.getElementById("news")
 				)
+				render(
+					<Provider store={store}>
+						<ThemeProvider theme={mainTheme}>
+							<div className="root">
+								<NewsPopup />
+							</div>
+						</ThemeProvider>
+					</Provider>,
+					document.getElementById("news-popup")
+				)
 				break
 			case "update":
 				store.dispatch(load())
+				break
+			case "show-popup-if-needed":
+				store.dispatch(showPopupIfNeeded())
 				break
 		}
 	}
