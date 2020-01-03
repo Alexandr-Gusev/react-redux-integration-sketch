@@ -9,6 +9,7 @@ import {ThemeProvider} from "@material-ui/core/styles"
 
 import {commonReducer, setUserProps} from "./user-props"
 import {newsReducer, News, NewsPopup, load, showPopupIfNeeded} from "./News"
+import {Test} from "./Test"
 
 import {mainTheme} from "./themes"
 import "../css/common.css"
@@ -62,6 +63,26 @@ document.addEventListener(
 				break
 			case "show-popup-if-needed":
 				store.dispatch(showPopupIfNeeded())
+				break
+		}
+	}
+)
+
+document.addEventListener(
+	"react-Test",
+	e => {
+		switch (e.action) {
+			case "render":
+				render(
+					<Provider store={store}>
+						<ThemeProvider theme={mainTheme}>
+							<div className="root">
+								<Test />
+							</div>
+						</ThemeProvider>
+					</Provider>,
+					document.getElementById("Test")
+				)
 				break
 		}
 	}

@@ -6,7 +6,7 @@ import {connect} from "react-redux"
 import TreeView from "@material-ui/lab/TreeView"
 import TreeItem from "@material-ui/lab/TreeItem"
 
-export const Details = connect(
+export const Test = connect(
 )(
 	() => {
 		const [expanded, setExpanded] = useState([])
@@ -15,10 +15,12 @@ export const Details = connect(
 		}
 		let nodeId = 1
 		let tree = []
-		for (let i = 0; i < 1000; i++) {
-			let treeItem = {nodeId: nodeId++, label: "tree item " + (i + 1), items: []}
-			for (let j = 0; j < 256; j++) {
-				treeItem.items.push({nodeId: nodeId++, label: "tree item " + (i + 1) + " " + (j + 1), items: []})
+		for (let i = 0; i < 10; i++) {
+			let treeItem = {nodeId: "_" + nodeId, label: "Device item " + (i + 1), items: []}
+			nodeId++;
+			for (let j = 0; j < 10; j++) {
+				treeItem.items.push({nodeId: "_" + nodeId, label: "Channel item " + (i + 1) + " " + (j + 1), items: []})
+				nodeId++;
 			}
 			tree.push(treeItem)
 		}
@@ -34,7 +36,7 @@ export const Details = connect(
 				)
 			} else {
 				return (
-					<TreeItem nodeId={root.nodeId} label={root.label}>
+					<TreeItem nodeId={root.nodeId} key={root.nodeId} label={root.label}>
 						{root.items.map(item => gen(item))}
 					</TreeItem>
 				)

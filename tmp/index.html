@@ -25,11 +25,13 @@
 			<div style="width: 200px; padding-right: 8px;">
 				<div id="Notifications_item" onclick="show('Notifications');">Notifications</div>
 				<div id="News_item" onclick="show('News');">News</div>
+				<div id="Test_item" onclick="show('Test');">Test</div>
 			</div>
 		</div>
 		<div id="pages" style="flex: 1 1 auto;">
 			<div id="Notifications">Notifications</div>
 			<div id="News">News</div>
+			<div id="Test">Test</div>
 		</div>
 		<script>
 			window.qsTr = function(s) {return s;};
@@ -47,6 +49,10 @@
 			e.action = "show-popup-if-needed";
 			document.dispatchEvent(e);
 			
+			e = new Event("react-Test");
+			e.action = "render";
+			document.dispatchEvent(e);
+
 			show("Notifications");
 		</script>
 	</div>
