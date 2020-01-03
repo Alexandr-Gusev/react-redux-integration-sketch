@@ -57,14 +57,14 @@ export const List = connect(
 				<div style={{display: showErrorAll ? "" : "none"}}>
 					<ErrorAll />
 				</div>
-				<div className="News-wrapper" style={{display: !showWaitAll && !showErrorAll ? "" : "none"}}>
+				<div className="News" style={{display: !showWaitAll && !showErrorAll ? "" : "none"}}>
 					<h1 className="News-header">{qsTr("News")}</h1>
 					<div className="News-body">
 						{items.map(item => <ListItem key={item.id} item={item} />)}
 						{
 							moreItemsAvailable &&
 							(
-								<div className="News-list-get-more">
+								<div className="News-get-more">
 									<div style={{display: showWaitSlice ? "" : "none"}}>
 										<WaitSlice />
 									</div>

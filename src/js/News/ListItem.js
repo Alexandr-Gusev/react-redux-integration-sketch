@@ -11,14 +11,14 @@ export const ListItem = connect(
 	})
 )(
 	({item, onItemClick}) => (
-		<div className="News-list-item" onClick={() => onItemClick(item)}>
+		<div className="News-ListItem" onClick={() => onItemClick(item)}>
 			<div>
-				<img className="News-list-item-img" src={item.Image_url} />
+				<img className="News-ListItem-img" src={item.Image_url} />
 			</div>
-			<div className="News-list-item-body">
-				<div className="News-list-item-title">{item.Title}</div>
-				<div className="News-list-item-time">{item.created_at_local}</div>
-				<div className="News-list-item-short-text">{item.ShortText}</div>
+			<div className="News-ListItem-body">
+				<div className="News-ListItem-title">{item.Title}</div>
+				<div className="News-ListItem-time">{item.created_at_local}</div>
+				<div className="News-ListItem-short-text">{item.ShortText}</div>
 			</div>
 		</div>
 	)

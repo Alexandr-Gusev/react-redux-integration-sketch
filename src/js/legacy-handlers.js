@@ -1,9 +1,9 @@
 document.addEventListener(
-	"legacy-news",
+	"legacy-News",
 	function(e) {
 		switch (e.action) {
 			case "show":
-				show("news");
+				show("News");
 				break;
 			case "set-unread-news-count":
 				$.html("unread_news_counter", e.unreadNewsCount);

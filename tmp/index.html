@@ -2,11 +2,11 @@
 <head>
 	<link href="bundle.css" rel="stylesheet"></head>
 	<script type="text/javascript" src="bundle.js"></script>
-	<script type="text/javascript" src="from-react.js"></script>
+	<script type="text/javascript" src="legacy-handlers.js"></script>
 	<script>
 		function show(page) {
-			if (page === "news") {
-				var e = new Event("react-news");
+			if (page === "News") {
+				var e = new Event("react-News");
 				e.action = "update";
 				document.dispatchEvent(e);
 			}
@@ -19,17 +19,17 @@
 	</script>
 </head>
 <body>
-	<div id="news-popup"></div>
+	<div id="News-Popup"></div>
 	<div style="height: 100%; display: flex;">
 		<div>
 			<div style="width: 200px; padding-right: 8px;">
-				<div id="notifications_item" onclick="show('notifications');">Notifications</div>
-				<div id="news_item" onclick="show('news');">News</div>
+				<div id="Notifications_item" onclick="show('Notifications');">Notifications</div>
+				<div id="News_item" onclick="show('News');">News</div>
 			</div>
 		</div>
 		<div id="pages" style="flex: 1 1 auto;">
-			<div id="notifications">Notifications</div>
-			<div id="news">News</div>
+			<div id="Notifications">Notifications</div>
+			<div id="News">News</div>
 		</div>
 		<script>
 			window.qsTr = function(s) {return s;};
@@ -41,13 +41,13 @@
 			e.userProps = {cms_url: "http://localhost:1337"};
 			document.dispatchEvent(e);
 			
-			e = new Event("react-news");
+			e = new Event("react-News");
 			e.action = "render";
 			document.dispatchEvent(e);
 			e.action = "show-popup-if-needed";
 			document.dispatchEvent(e);
 			
-			show("notifications");
+			show("Notifications");
 		</script>
 	</div>
 </body>

@@ -7,7 +7,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 module.exports = (env, argv) => {
 	let config = {
 		entry: [
-			"./src/js/to-react.js"
+			"./src/js/react-handlers.js"
 		],
 		output: {
 			path: path.resolve(__dirname, "dist"),

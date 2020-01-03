@@ -153,7 +153,7 @@ export const hidePopup = () => ({type: HIDE_POPUP})
 
 export const showNews = () => dispatch => {
 	dispatch(hidePopup())
-	let e = new Event("legacy-news")
+	let e = new Event("legacy-News")
 	e.action = "show"
 	document.dispatchEvent(e)
 }
@@ -167,7 +167,7 @@ const defaultState = {
 	selectedItem: {},
 	items: [],
 	moreItemsAvailable: false,
-	popupItem: undefined
+	lastUnreadItem: undefined
 }
 
 const appendItems = (items, slice) => {
@@ -239,12 +239,12 @@ export const newsReducer = (state = defaultState, action) => {
 		case SHOW_POPUP:
 			return {
 				...state,
-				popupItem: action.item
+				lastUnreadItem: action.item
 			}
 		case HIDE_POPUP:
 			return {
 				...state,
-				popupItem: undefined
+				lastUnreadItem: undefined
 			}
 		default:
 			return state

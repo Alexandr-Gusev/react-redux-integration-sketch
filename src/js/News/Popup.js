@@ -10,34 +10,34 @@ import {hidePopup, showNews} from "./ducks"
 
 export const Popup = connect(
 	state => ({
-		item: state.news.popupItem
+		lastUnreadItem: state.news.lastUnreadItem
 	}),
 	dispatch => ({
 		onCloseClick: () => dispatch(hidePopup()),
 		onMoreDetailsClick: () => dispatch(showNews())
 	})
 )(
-	({item, onCloseClick, onMoreDetailsClick}) => (
-		item !== undefined &&
+	({lastUnreadItem, onCloseClick, onMoreDetailsClick}) => (
+		lastUnreadItem !== undefined &&
 		(
-			<div className="News-popup-wrapper">
-				<div className="News-popup-header">
-					<div className="News-popup-title">{qsTr("New article on the News page")}</div>
-					<div className="News-popup-close">
+			<div className="News-Popup">
+				<div className="News-Popup-header">
+					<div className="News-Popup-caption">{qsTr("New article on the News page")}</div>
+					<div className="News-Popup-close">
 						<IconButton size="small" onClick={() => onCloseClick()}>
 							<CloseIcon fontSize="small" />
 						</IconButton>
 					</div>
 				</div>
-				<div className="News-popup-body">
-					<div className="News-popup-img-prefix">
-						<div className="News-popup-item-title">{item.Title}</div>
-						<div className="News-popup-more-details">
+				<div className="News-Popup-body">
+					<div className="News-Popup-img-prefix">
+						<div className="News-Popup-title">{lastUnreadItem.Title}</div>
+						<div className="News-Popup-more-details">
 							<Button variant="contained" color="secondary" onClick={() => onMoreDetailsClick()}>{qsTr("More details")}</Button>
 						</div>
 					</div>
 					<div>
-						<img className="News-popup-img" src="/img2/News-popup.svg" />
+						<img className="News-Popup-img" src="/img2/News-Popup.svg" />
 					</div>
 				</div>
 			</div>

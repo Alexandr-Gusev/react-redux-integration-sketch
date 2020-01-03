@@ -16,25 +16,25 @@ export const Details = connect(
 )(
 	({item, onAllNewsClick}) => (
 		<div>
-			<div className="News-details-header">
-				<div className="News-details-title">{item.Title}</div>
-				<div className="News-details-all-news">
+			<div className="News-Details-header">
+				<div className="News-Details-title">{item.Title}</div>
+				<div className="News-Details-all-news">
 					<Button variant="outlined" color="primary" onClick={() => onAllNewsClick()}>{qsTr("All news")}</Button>
 				</div>
 			</div>
-			<div className="News-details-header-suffix">
-				<div className="News-details-short-text">
+			<div className="News-Details-header-suffix">
+				<div className="News-Details-short-text">
 					<div>
-						<img className="News-details-quotes" src="/img2/quotes.svg" />
+						<img className="News-Details-quotes" src="/img2/quotes.svg" />
 					</div>
 					{item.ShortText}
 				</div>
 				<div>
-					<img className="News-details-img" src={item.Image_url} />
+					<img className="News-Details-img" src={item.Image_url} />
 				</div>
 			</div>
-			<div className="News-details-long-text">{item.LongText}</div>
-			<div className="News-details-time">{qsTr("Date") + ": " + item.created_at_local}</div>
+			<div className="News-Details-long-text">{item.LongText}</div>
+			<div className="News-Details-time">{qsTr("Date") + ": " + item.created_at_local}</div>
 		</div>
 	)
 )

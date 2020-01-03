@@ -32,7 +32,7 @@ document.addEventListener(
 )
 
 document.addEventListener(
-	"react-news",
+	"react-News",
 	e => {
 		switch (e.action) {
 			case "render":
@@ -44,7 +44,7 @@ document.addEventListener(
 							</div>
 						</ThemeProvider>
 					</Provider>,
-					document.getElementById("news")
+					document.getElementById("News")
 				)
 				render(
 					<Provider store={store}>
@@ -54,7 +54,7 @@ document.addEventListener(
 							</div>
 						</ThemeProvider>
 					</Provider>,
-					document.getElementById("news-popup")
+					document.getElementById("News-Popup")
 				)
 				break
 			case "update":
