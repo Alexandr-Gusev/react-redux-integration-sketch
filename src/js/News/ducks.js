@@ -234,7 +234,8 @@ export const newsReducer = (state = defaultState, action) => {
 				showWaitAll: false,
 				showWaitSlice: false,
 				items: appendItems(state.items, action.items),
-				moreItemsAvailable: action.items.length > PAGE_SIZE
+				moreItemsAvailable: action.items.length > PAGE_SIZE,
+				lastUnreadItem: undefined
 			}
 		case SHOW_POPUP:
 			return {
