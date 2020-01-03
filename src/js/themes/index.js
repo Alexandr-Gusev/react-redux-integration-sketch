@@ -8,12 +8,5 @@ export const mainTheme = createMuiTheme({
 		secondary: {
 			main: "#C6453A",
 		}
-	},
-	overrides: {
-		MuiOutlinedInput: {
-			input: {
-				padding: "8px"
-			}
-		}
 	}
 })

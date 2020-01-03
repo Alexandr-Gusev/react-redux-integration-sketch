@@ -19,7 +19,7 @@ module.exports = (env, argv) => {
 		module: {
 			rules: [
 				{
-					test: /\.(js|jsx)$/,
+					test: /\.js$/,
 					exclude: /node_modules/,
 					use: [
 						"cache-loader",
