@@ -64,7 +64,12 @@ module.exports = (env, argv) => {
 	}
 	if (argv.mode === "production") {
 		config.optimization = {
-			minimizer: [new UglifyJsPlugin()]
+			minimizer: [
+				new UglifyJsPlugin({
+					cache: true,
+					parallel: true
+				})
+			]
 		}
 	}
 	return config
