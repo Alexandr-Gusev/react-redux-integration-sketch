@@ -33,7 +33,8 @@ module.exports = (env, argv) => {
 						{
 							loader: "eslint-loader",
 							options: {
-								configFile: path.resolve(__dirname, ".eslintrc.js")
+								configFile: path.resolve(__dirname, ".eslintrc.js"),
+								failOnError: argv.mode === "production"
 							}
 						}
 					]
