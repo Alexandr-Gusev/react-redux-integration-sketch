@@ -104,7 +104,7 @@ export const showPopupIfNeeded = () => (dispatch, getState) => {
 				text => {
 					const unreadNewsCount = parseInt(text)
 					
-					let e = new Event("legacy-news")
+					const e = new Event("legacy-news")
 					e.action = "set-unread-news-count"
 					e.unreadNewsCount = unreadNewsCount
 					document.dispatchEvent(e)
@@ -152,7 +152,7 @@ export const hidePopup = () => ({type: HIDE_POPUP})
 
 export const showNews = () => dispatch => {
 	dispatch(hidePopup())
-	let e = new Event("legacy-News")
+	const e = new Event("legacy-News")
 	e.action = "show"
 	document.dispatchEvent(e)
 }

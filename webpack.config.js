@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 
 module.exports = (env, argv) => {
-	let config = {
+	const config = {
 		entry: [
 			"./src/js/react-handlers.js"
 		],

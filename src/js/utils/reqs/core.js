@@ -2,7 +2,7 @@ import "@babel/polyfill"
 import fetch from "cross-fetch"
 
 let requestCount = 0
-let requests = {}
+const requests = {}
 
 export const abortReq = (reqKey, message) => {
 	const request = requests[reqKey]
@@ -14,7 +14,7 @@ export const abortReq = (reqKey, message) => {
 }
 
 export const sendReq = (url, options, timeout = 5000) => {
-	let request = {
+	const request = {
 		controller: new AbortController()
 	}
 	const promise = new Promise((resolve, reject) => {
