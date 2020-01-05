@@ -12,16 +12,14 @@ export const Root = connect(
 		showDetails: state.news.showDetails
 	})
 )(
-	({showDetails}) => {
-		return (
-			<div>
-				<div style={{display: showDetails ? "" : "none"}}>
-					<Details />
-				</div>
-				<div style={{display: !showDetails ? "" : "none"}}>
-					<List />
-				</div>
+	({showDetails}) => (
+		<div>
+			<div style={{display: showDetails ? "" : "none"}}>
+				<Details />
 			</div>
-		)
-	}
+			<div style={{display: !showDetails ? "" : "none"}}>
+				<List />
+			</div>
+		</div>
+	)
 )

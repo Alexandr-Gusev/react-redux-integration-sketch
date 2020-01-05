@@ -5,9 +5,7 @@ module.exports = {
 		"es6": true
 	},
 	"extends": [
-		"eslint:recommended",
-		"plugin:react/recommended",
-		"plugin:import/recommended"
+		"airbnb"
 	],
 	"globals": {
 		"Atomics": "readonly",
@@ -25,11 +23,28 @@ module.exports = {
 		"import"
 	],
 	"rules": {
+		"no-tabs": 0,
 		"indent": ["error", "tab"],
-		"quotes": ["error", "double"],
+		"react/jsx-indent": ["error", "tab"],
+		"react/jsx-indent-props": ["error", "tab"],
 		"semi": ["error", "never"],
-		"func-style": ["error", "declaration", { "allowArrowFunctions": true }],
-		"no-unused-vars": 1
+		"quotes": ["error", "double"],
+		"func-style": ["error", "expression"],
+		"arrow-parens": ["error", "as-needed"],
+		"arrow-body-style": ["error", "as-needed"],
+		"object-curly-spacing": ["error", "never"],
+		"object-curly-newline": 0,
+		"no-console": 0,
+		"no-unused-vars": 0,
+		"jsx-a11y/alt-text": 0,
+		"jsx-a11y/click-events-have-key-events": 0,
+		"jsx-a11y/no-static-element-interactions": 0,
+		"react/jsx-filename-extension": 0,
+		"import/prefer-default-export": 0,
+		"camelcase": 0,
+		"max-len": 0,
+		"comma-dangle": 0,
+		"prefer-template": 0
 	},
 	"settings": {
 		"react": {

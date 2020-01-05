@@ -23,7 +23,7 @@ export const List = connect(
 	}),
 	dispatch => ({
 		onGetMoreClick: firstNewsId => dispatch(load(firstNewsId)),
-		hideErrorSlice: () => dispatch(hideErrorSlice())
+		onErrorFadeOut: () => dispatch(hideErrorSlice())
 	})
 )(
 	({
@@ -34,14 +34,14 @@ export const List = connect(
 		items,
 		moreItemsAvailable,
 		onGetMoreClick,
-		hideErrorSlice
+		onErrorFadeOut
 	}) => {
 		if (showErrorSlice) {
 			useEffect(
 				() => {
 					setTimeout(
 						() => {
-							hideErrorSlice()
+							onErrorFadeOut()
 						},
 						5000
 					)
@@ -62,8 +62,8 @@ export const List = connect(
 					<div className="News-body">
 						{items.map(item => <ListItem key={item.id} item={item} />)}
 						{
-							moreItemsAvailable &&
-							(
+							moreItemsAvailable
+							&& (
 								<div className="News-get-more">
 									<div style={{display: showWaitSlice ? "" : "none"}}>
 										<WaitSlice />

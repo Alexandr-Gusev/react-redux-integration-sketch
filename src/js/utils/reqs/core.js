@@ -22,7 +22,7 @@ export const sendReq = (url, options, timeout = 5000) => {
 		fetch(url, {...options, signal: request.controller.signal}).then(resolve, reject)
 	})
 	const reqKey = "_" + requestCount
-	requestCount++
+	requestCount += 1
 	requests[reqKey] = request
 	setTimeout(
 		() => {

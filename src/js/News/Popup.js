@@ -18,8 +18,8 @@ export const Popup = connect(
 	})
 )(
 	({lastUnreadItem, onCloseClick, onMoreDetailsClick}) => (
-		lastUnreadItem !== undefined &&
-		(
+		lastUnreadItem !== undefined
+		&& (
 			<div className="News-Popup">
 				<div className="News-Popup-header">
 					<div className="News-Popup-caption">{qsTr("New article on the News page")}</div>

@@ -13,33 +13,31 @@ export const Test = connect()(
 		}
 		let nodeId = 1
 		const tree = []
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < 10; i += 1) {
 			const treeItem = {nodeId: "_" + nodeId, label: "Device item " + (i + 1), items: []}
-			nodeId++
-			for (let j = 0; j < 10; j++) {
+			nodeId += 1
+			for (let j = 0; j < 10; j += 1) {
 				treeItem.items.push({nodeId: "_" + nodeId, label: "Channel item " + (i + 1) + " " + (j + 1), items: []})
-				nodeId++
+				nodeId += 1
 			}
 			tree.push(treeItem)
 		}
-		const gen = (root) => {
-			if (!root) {
-				return (
+		const gen = root => (
+			<div>
+				{root === undefined ? (
 					<TreeView
 						expanded={expanded}
 						onNodeToggle={handleChange}
 					>
 						{tree.map(item => gen(item))}
 					</TreeView>
-				)
-			} else {
-				return (
+				) : (
 					<TreeItem nodeId={root.nodeId} key={root.nodeId} label={root.label}>
 						{root.items.map(item => gen(item))}
 					</TreeItem>
-				)
-			}
-		}
+				)}
+			</div>
+		)
 		return (
 			<div>
 				{gen()}

@@ -22,7 +22,7 @@ export const showDetails = item => ({type: SHOW_DETAILS, item})
 export const hideDetails = () => ({type: HIDE_DETAILS})
 export const loaded = items => ({type: LOADED, items})
 
-const getImgSrc = (cms_url, item) => item.Image.url.indexOf("/") === 0 ? cms_url + item.Image.url : item.Image.url
+const getImgSrc = (cms_url, item) => (item.Image.url.indexOf("/") === 0 ? cms_url + item.Image.url : item.Image.url)
 
 const prepareItem = (cms_url, item) => ({
 	...item,
@@ -32,9 +32,11 @@ const prepareItem = (cms_url, item) => ({
 
 export const load = firstNewsId => (dispatch, getState) => {
 	const {common: {userProps: {cms_url}}} = getState()
-	const {promise} = sendReq(
-		cms_url + "/news?_limit=" + (PAGE_SIZE + 1) + "&_sort=id:desc" + (firstNewsId === undefined ? "" : "&id_lt=" + firstNewsId)
-	)
+	let url = cms_url + "/news?_limit=" + (PAGE_SIZE + 1) + "&_sort=id:desc"
+	if (firstNewsId !== undefined) {
+		url += "&id_lt=" + firstNewsId
+	}
+	const {promise} = sendReq(url)
 	dispatch(firstNewsId ? showWaitSlice() : showWaitAll())
 	promise
 		.then(
@@ -43,7 +45,7 @@ export const load = firstNewsId => (dispatch, getState) => {
 		.then(
 			json => {
 				if (!Array.isArray(json)) {
-					throw "Unexpected response: " + JSON.stringify(json)
+					throw new Error("Unexpected response: " + JSON.stringify(json))
 				}
 				dispatch(
 					loaded(
@@ -63,6 +65,9 @@ export const load = firstNewsId => (dispatch, getState) => {
 		)
 }
 
+export const showPopup = item => ({type: SHOW_POPUP, item})
+export const hidePopup = () => ({type: HIDE_POPUP})
+
 export const showPopupIfNeeded = () => (dispatch, getState) => {
 	const {common: {userProps: {cms_url}}} = getState()
 
@@ -75,7 +80,7 @@ export const showPopupIfNeeded = () => (dispatch, getState) => {
 			.then(
 				json => {
 					if (!Array.isArray(json)) {
-						throw "Unexpected response: " + JSON.stringify(json)
+						throw new Error("Unexpected response: " + JSON.stringify(json))
 					}
 					if (json.length) {
 						dispatch(
@@ -83,7 +88,7 @@ export const showPopupIfNeeded = () => (dispatch, getState) => {
 								prepareItem(cms_url, json[0])
 							)
 						)
-					}			
+					}
 				}
 			)
 			.then(
@@ -102,13 +107,13 @@ export const showPopupIfNeeded = () => (dispatch, getState) => {
 			)
 			.then(
 				text => {
-					const unreadNewsCount = parseInt(text)
-					
+					const unreadNewsCount = parseInt(text, 10)
+
 					const e = new Event("legacy-news")
 					e.action = "set-unread-news-count"
 					e.unreadNewsCount = unreadNewsCount
 					document.dispatchEvent(e)
-					
+
 					if (unreadNewsCount > 0) {
 						getLastUnreadNews(lastReadNewsId)
 					}
@@ -142,13 +147,10 @@ export const showPopupIfNeeded = () => (dispatch, getState) => {
 				}
 			)
 	}
-	
-	//getLastReadNewsId()
+
+	// getLastReadNewsId()
 	getUnreadNewsCount(0)
 }
-
-export const showPopup = item => ({type: SHOW_POPUP, item})
-export const hidePopup = () => ({type: HIDE_POPUP})
 
 export const showNews = () => dispatch => {
 	dispatch(hidePopup())
