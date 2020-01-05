@@ -22,19 +22,19 @@ module.exports = (env, argv) => {
 					test: /\.js$/,
 					exclude: /node_modules/,
 					use: [
-						"cache-loader",
 						"thread-loader",
 						{
 							loader: "babel-loader",
 							options: {
-								compact: argv.mode === "production"
+								compact: argv.mode === "production",
+								cacheDirectory: true
 							}
 						},
 						{
 							loader: "eslint-loader",
 							options: {
 								configFile: path.resolve(__dirname, ".eslintrc.js"),
-								failOnError: argv.mode === "production"
+								cache: true
 							}
 						}
 					]
