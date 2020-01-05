@@ -1,6 +1,5 @@
-import React from "react"
+import React, {useEffect} from "react"
 
-import {useEffect} from "react"
 import {connect} from "react-redux"
 
 import {Button} from "@material-ui/core"
@@ -11,6 +10,7 @@ import {ErrorAll} from "../utils/ErrorAll"
 import {ListItem} from "./ListItem"
 import {WaitSlice} from "../utils/WaitSlice"
 import {ErrorSlice} from "../utils/ErrorSlice"
+import {qsTr} from "../utils/qsTr"
 
 export const List = connect(
 	state => ({

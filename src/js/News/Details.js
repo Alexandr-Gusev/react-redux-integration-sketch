@@ -5,6 +5,7 @@ import {connect} from "react-redux"
 import {Button} from "@material-ui/core"
 
 import {hideDetails} from "./ducks"
+import {qsTr} from "../utils/qsTr"
 
 export const Details = connect(
 	state => ({

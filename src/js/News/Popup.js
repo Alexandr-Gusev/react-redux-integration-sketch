@@ -2,11 +2,11 @@ import React from "react"
 
 import {connect} from "react-redux"
 
-import {IconButton} from "@material-ui/core"
+import {IconButton, Button} from "@material-ui/core"
 import CloseIcon from "@material-ui/icons/Close"
-import {Button} from "@material-ui/core"
 
 import {hidePopup, showNews} from "./ducks"
+import {qsTr} from "../utils/qsTr"
 
 export const Popup = connect(
 	state => ({

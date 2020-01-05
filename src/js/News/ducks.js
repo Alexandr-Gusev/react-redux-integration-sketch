@@ -12,7 +12,6 @@ const HIDE_DETAILS = "News/HIDE_DETAILS"
 const LOADED = "News/LOADED"
 const SHOW_POPUP = "News/SHOW_POPUP"
 const HIDE_POPUP = "News/HIDE_POPUP"
-const SHOW_NEWS = "News/SHOW_NEWS"
 
 export const showWaitAll = () => ({type: SHOW_WAIT_ALL})
 export const showErrorAll = () => ({type: SHOW_ERROR_ALL})
@@ -38,38 +37,6 @@ export const load = firstNewsId => (dispatch, getState) => {
 	)
 	dispatch(firstNewsId ? showWaitSlice() : showWaitAll())
 	promise
-	.then(
-		response => response.json()
-	)
-	.then(
-		json => {
-			if (!Array.isArray(json)) {
-				throw "Unexpected response: " + JSON.stringify(json)
-			}
-			dispatch(
-				loaded(
-					json.map(
-						item => prepareItem(cms_url, item)
-					)
-				)
-			)
-		}
-	)
-	.then(
-		null,
-		error => {
-			dispatch(firstNewsId ? showErrorSlice() : showErrorAll())
-			console.error("Unexpected response: ", error)
-		}
-	)
-}
-
-export const showPopupIfNeeded = () => (dispatch, getState) => {
-	const {common: {userProps: {cms_url}}} = getState()
-
-	const getLastUnreadNews = lastReadNewsId => {
-		const {promise} = sendReq(cms_url + "/news?_limit=1&_sort=created_at:DESC&id_gt=" + lastReadNewsId)
-		promise
 		.then(
 			response => response.json()
 		)
@@ -78,70 +45,102 @@ export const showPopupIfNeeded = () => (dispatch, getState) => {
 				if (!Array.isArray(json)) {
 					throw "Unexpected response: " + JSON.stringify(json)
 				}
-				if (json.length) {
-					dispatch(
-						showPopup(
-							prepareItem(cms_url, json[0])
+				dispatch(
+					loaded(
+						json.map(
+							item => prepareItem(cms_url, item)
 						)
 					)
-				}			
+				)
 			}
 		)
 		.then(
 			null,
 			error => {
+				dispatch(firstNewsId ? showErrorSlice() : showErrorAll())
 				console.error("Unexpected response: ", error)
 			}
 		)
+}
+
+export const showPopupIfNeeded = () => (dispatch, getState) => {
+	const {common: {userProps: {cms_url}}} = getState()
+
+	const getLastUnreadNews = lastReadNewsId => {
+		const {promise} = sendReq(cms_url + "/news?_limit=1&_sort=created_at:DESC&id_gt=" + lastReadNewsId)
+		promise
+			.then(
+				response => response.json()
+			)
+			.then(
+				json => {
+					if (!Array.isArray(json)) {
+						throw "Unexpected response: " + JSON.stringify(json)
+					}
+					if (json.length) {
+						dispatch(
+							showPopup(
+								prepareItem(cms_url, json[0])
+							)
+						)
+					}			
+				}
+			)
+			.then(
+				null,
+				error => {
+					console.error("Unexpected response: ", error)
+				}
+			)
 	}
 
 	const getUnreadNewsCount = lastReadNewsId => {
 		const {promise} = sendReq(cms_url + "/news/count?id_gt=" + lastReadNewsId)
 		promise
-		.then(
-			response => response.text()
-		)
-		.then(
-			text => {
-				const unreadNewsCount = parseInt(text)
-				
-				let e = new Event("legacy-news")
-				e.action = "set-unread-news-count"
-				e.unreadNewsCount = unreadNewsCount
-				document.dispatchEvent(e)
-				
-				if (unreadNewsCount > 0) {
-					getLastUnreadNews(lastReadNewsId)
+			.then(
+				response => response.text()
+			)
+			.then(
+				text => {
+					const unreadNewsCount = parseInt(text)
+					
+					let e = new Event("legacy-news")
+					e.action = "set-unread-news-count"
+					e.unreadNewsCount = unreadNewsCount
+					document.dispatchEvent(e)
+					
+					if (unreadNewsCount > 0) {
+						getLastUnreadNews(lastReadNewsId)
+					}
 				}
-			}
-		)
-		.then(
-			null,
-			error => {
-				console.error("Unexpected response: ", error)
-			}
-		)
+			)
+			.then(
+				null,
+				error => {
+					console.error("Unexpected response: ", error)
+				}
+			)
 	}
 
 	const getLastReadNewsId = () => {
 		const {promise} = sendReq("get-last-news-id")
 		promise
-		.then(
-			response => response.json()
-		)
-		.then(
-			json => {
-				if (json.success) {
-					getUnreadNewsCount(json.id)
+			.then(
+				response => response.json()
+			)
+			.then(
+				json => {
+					if (json.success) {
+						getUnreadNewsCount(json.id)
+					}
 				}
-			}
-		)
-		.then(
-			null,
-			error => {
-				console.error("Unexpected response: ", error)
-			}
-		)
+			)
+			.then(
+				null,
+				error => {
+					console.error("Unexpected response: ", error)
+				}
+			)
 	}
 	
 	//getLastReadNewsId()
@@ -184,70 +183,70 @@ const appendItems = (items, slice) => {
 
 export const newsReducer = (state = defaultState, action) => {
 	switch (action.type) {
-		case SHOW_WAIT_ALL:
-			return {
-				...state,
-				showWaitAll: true,
-				showErrorAll: false,
-				showWaitSlice: false,
-				showErrorSlice: false,
-				showDetails: false,
-				selectedItem: {}
-			}
-		case SHOW_ERROR_ALL:
-			return {
-				...state,
-				showWaitAll: false,
-				showErrorAll: true
-			}
-		case SHOW_WAIT_SLICE:
-			return {
-				...state,
-				showWaitSlice: true,
-				showErrorSlice: false
-			}
-		case SHOW_ERROR_SLICE:
-			return {
-				...state,
-				showWaitSlice: false,
-				showErrorSlice: true
-			}
-		case HIDE_ERROR_SLICE:
-			return {
-				...state,
-				showErrorSlice: false
-			}
-		case SHOW_DETAILS:
-			return {
-				...state,
-				showDetails: true,
-				selectedItem: action.item
-			}
-		case HIDE_DETAILS:
-			return {
-				...state,
-				showDetails: false
-			}
-		case LOADED:
-			return {
-				...state,
-				showWaitAll: false,
-				showWaitSlice: false,
-				items: appendItems(state.items, action.items),
-				moreItemsAvailable: (!state.items.length && !action.items.length) || action.items.length > PAGE_SIZE,
-				lastUnreadItem: undefined
-			}
-		case SHOW_POPUP:
-			return {
-				...state,
-				lastUnreadItem: action.item
-			}
-		case HIDE_POPUP:
-			return {
-				...state,
-				lastUnreadItem: undefined
-			}
-		default:
-			return state
+	case SHOW_WAIT_ALL:
+		return {
+			...state,
+			showWaitAll: true,
+			showErrorAll: false,
+			showWaitSlice: false,
+			showErrorSlice: false,
+			showDetails: false,
+			selectedItem: {}
+		}
+	case SHOW_ERROR_ALL:
+		return {
+			...state,
+			showWaitAll: false,
+			showErrorAll: true
+		}
+	case SHOW_WAIT_SLICE:
+		return {
+			...state,
+			showWaitSlice: true,
+			showErrorSlice: false
+		}
+	case SHOW_ERROR_SLICE:
+		return {
+			...state,
+			showWaitSlice: false,
+			showErrorSlice: true
+		}
+	case HIDE_ERROR_SLICE:
+		return {
+			...state,
+			showErrorSlice: false
+		}
+	case SHOW_DETAILS:
+		return {
+			...state,
+			showDetails: true,
+			selectedItem: action.item
+		}
+	case HIDE_DETAILS:
+		return {
+			...state,
+			showDetails: false
+		}
+	case LOADED:
+		return {
+			...state,
+			showWaitAll: false,
+			showWaitSlice: false,
+			items: appendItems(state.items, action.items),
+			moreItemsAvailable: (!state.items.length && !action.items.length) || action.items.length > PAGE_SIZE,
+			lastUnreadItem: undefined
+		}
+	case SHOW_POPUP:
+		return {
+			...state,
+			lastUnreadItem: action.item
+		}
+	case HIDE_POPUP:
+		return {
+			...state,
+			lastUnreadItem: undefined
+		}
+	default:
+		return state
 	}
 }

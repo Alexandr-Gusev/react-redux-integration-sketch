@@ -1,3 +1,3 @@
 import {abortReq} from "./core"
 
-export const abort = reqKey => dispatch => {abortReq(reqKey, "aborted")}
+export const abort = reqKey => () => {abortReq(reqKey, "aborted")}

@@ -29,6 +29,12 @@ module.exports = (env, argv) => {
 							options: {
 								compact: argv.mode === "production"
 							}
+						},
+						{
+							loader: "eslint-loader",
+							options: {
+								configFile: path.resolve(__dirname, ".eslintrc.js")
+							}
 						}
 					]
 				},
