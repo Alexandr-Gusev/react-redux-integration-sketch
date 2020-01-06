@@ -40,7 +40,11 @@
 			
 			e = new Event("react-user-props");
 			e.action = "set";
-			e.userProps = {cms_url: "http://localhost:1337"};
+			e.userProps = {
+				cms_url: "http://localhost:1337",
+				cloud_url: "http://192.168.1.38",
+				sid: "123"
+			};
 			document.dispatchEvent(e);
 			
 			e = new Event("react-News");

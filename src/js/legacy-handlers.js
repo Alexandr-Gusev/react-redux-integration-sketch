@@ -10,8 +10,8 @@ document.addEventListener(
 			$.visibility("unread_news_counter", e.unreadNewsCount > 0);
 			break;
 		default:
-			console.error("Unexpected action: ", e.action)
-			break
+			console.error("Unexpected action: ", e.action);
+			break;
 		}
 	}
 )

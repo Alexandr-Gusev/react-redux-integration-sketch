@@ -69,7 +69,7 @@ export const showPopup = item => ({type: SHOW_POPUP, item})
 export const hidePopup = () => ({type: HIDE_POPUP})
 
 export const showPopupIfNeeded = () => (dispatch, getState) => {
-	const {common: {userProps: {cms_url}}} = getState()
+	const {common: {userProps: {cms_url, cloud_url, sid}}} = getState()
 
 	const getLastUnreadNews = lastReadNewsId => {
 		const {promise} = sendReq(cms_url + "/news?_limit=1&_sort=created_at:DESC&id_gt=" + lastReadNewsId)
@@ -128,7 +128,7 @@ export const showPopupIfNeeded = () => (dispatch, getState) => {
 	}
 
 	const getLastReadNewsId = () => {
-		const {promise} = sendReq("get-last-news-id")
+		const {promise} = sendReq(cloud_url + "/get-last-news-id?sid=" + sid)
 		promise
 			.then(
 				response => response.json()
@@ -148,8 +148,7 @@ export const showPopupIfNeeded = () => (dispatch, getState) => {
 			)
 	}
 
-	// getLastReadNewsId()
-	getUnreadNewsCount(0)
+	getLastReadNewsId()
 }
 
 export const showNews = () => dispatch => {
