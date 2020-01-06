@@ -11,36 +11,40 @@ export const Test = connect()(
 		const handleChange = (event, nodes) => {
 			setExpanded(nodes)
 		}
-		let nodeId = 1
-		const tree = []
-		for (let i = 0; i < 10; i += 1) {
-			const treeItem = {nodeId: "_" + nodeId, label: "Device item " + (i + 1), items: []}
-			nodeId += 1
-			for (let j = 0; j < 10; j += 1) {
-				treeItem.items.push({nodeId: "_" + nodeId, label: "Channel item " + (i + 1) + " " + (j + 1), items: []})
+		const createData = () => {
+			let nodeId = 1
+			const data = []
+			for (let i = 0; i < 10; i += 1) {
+				const item = {nodeId: "_" + nodeId, label: "Device item " + (i + 1), items: []}
 				nodeId += 1
+				for (let j = 0; j < 10; j += 1) {
+					item.items.push({nodeId: "_" + nodeId, label: "Channel item " + (i + 1) + " " + (j + 1), items: []})
+					nodeId += 1
+				}
+				data.push(item)
 			}
-			tree.push(treeItem)
+			return data
 		}
-		const gen = root => (
+		const [data] = useState(createData())
+		const createNode = node => (
 			<div>
-				{root === undefined ? (
+				{node === undefined ? (
 					<TreeView
 						expanded={expanded}
 						onNodeToggle={handleChange}
 					>
-						{tree.map(item => gen(item))}
+						{data.map(item => createNode(item))}
 					</TreeView>
 				) : (
-					<TreeItem nodeId={root.nodeId} key={root.nodeId} label={root.label}>
-						{root.items.map(item => gen(item))}
+					<TreeItem nodeId={node.nodeId} key={node.nodeId} label={node.label}>
+						{node.items.map(item => createNode(item))}
 					</TreeItem>
 				)}
 			</div>
 		)
 		return (
 			<div>
-				{gen()}
+				{createNode()}
 			</div>
 		)
 	}
