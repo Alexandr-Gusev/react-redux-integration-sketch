@@ -25,12 +25,12 @@ document.addEventListener(
 	"react-user-props",
 	e => {
 		switch (e.action) {
-		case "set":
-			store.dispatch(setUserProps(e.userProps));
-			break;
-		default:
-			console.error("Unexpected action: ", e.action);
-			break;
+			case "set":
+				store.dispatch(setUserProps(e.userProps));
+				break;
+			default:
+				console.error("Unexpected action: ", e.action);
+				break;
 		}
 	}
 );
@@ -39,37 +39,37 @@ document.addEventListener(
 	"react-News",
 	e => {
 		switch (e.action) {
-		case "render":
-			render(
-				<Provider store={store}>
-					<ThemeProvider theme={mainTheme}>
-						<div className="root">
-							<News />
-						</div>
-					</ThemeProvider>
-				</Provider>,
-				document.getElementById("News")
-			);
-			render(
-				<Provider store={store}>
-					<ThemeProvider theme={mainTheme}>
-						<div className="root">
-							<NewsPopup />
-						</div>
-					</ThemeProvider>
-				</Provider>,
-				document.getElementById("News-Popup")
-			);
-			break;
-		case "update":
-			store.dispatch(load());
-			break;
-		case "show-popup-if-needed":
-			store.dispatch(showPopupIfNeeded());
-			break;
-		default:
-			console.error("Unexpected action: ", e.action);
-			break;
+			case "render":
+				render(
+					<Provider store={store}>
+						<ThemeProvider theme={mainTheme}>
+							<div className="root">
+								<News />
+							</div>
+						</ThemeProvider>
+					</Provider>,
+					document.getElementById("News")
+				);
+				render(
+					<Provider store={store}>
+						<ThemeProvider theme={mainTheme}>
+							<div className="root">
+								<NewsPopup />
+							</div>
+						</ThemeProvider>
+					</Provider>,
+					document.getElementById("News-Popup")
+				);
+				break;
+			case "update":
+				store.dispatch(load());
+				break;
+			case "show-popup-if-needed":
+				store.dispatch(showPopupIfNeeded());
+				break;
+			default:
+				console.error("Unexpected action: ", e.action);
+				break;
 		}
 	}
 );
@@ -78,21 +78,21 @@ document.addEventListener(
 	"react-Test",
 	e => {
 		switch (e.action) {
-		case "render":
-			render(
-				<Provider store={store}>
-					<ThemeProvider theme={mainTheme}>
-						<div className="root">
-							<Test />
-						</div>
-					</ThemeProvider>
-				</Provider>,
-				document.getElementById("Test")
-			);
-			break;
-		default:
-			console.error("Unexpected action: ", e.action);
-			break;
+			case "render":
+				render(
+					<Provider store={store}>
+						<ThemeProvider theme={mainTheme}>
+							<div className="root">
+								<Test />
+							</div>
+						</ThemeProvider>
+					</Provider>,
+					document.getElementById("Test")
+				);
+				break;
+			default:
+				console.error("Unexpected action: ", e.action);
+				break;
 		}
 	}
 );

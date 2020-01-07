@@ -184,70 +184,70 @@ const appendItems = (items, slice) => {
 
 export const newsReducer = (state = defaultState, action) => {
 	switch (action.type) {
-	case SHOW_WAIT_ALL:
-		return {
-			...state,
-			showWaitAll: true,
-			showErrorAll: false,
-			showWaitSlice: false,
-			showErrorSlice: false,
-			showDetails: false,
-			selectedItem: {}
-		};
-	case SHOW_ERROR_ALL:
-		return {
-			...state,
-			showWaitAll: false,
-			showErrorAll: true
-		};
-	case SHOW_WAIT_SLICE:
-		return {
-			...state,
-			showWaitSlice: true,
-			showErrorSlice: false
-		};
-	case SHOW_ERROR_SLICE:
-		return {
-			...state,
-			showWaitSlice: false,
-			showErrorSlice: true
-		};
-	case HIDE_ERROR_SLICE:
-		return {
-			...state,
-			showErrorSlice: false
-		};
-	case SHOW_DETAILS:
-		return {
-			...state,
-			showDetails: true,
-			selectedItem: action.item
-		};
-	case HIDE_DETAILS:
-		return {
-			...state,
-			showDetails: false
-		};
-	case LOADED:
-		return {
-			...state,
-			showWaitAll: false,
-			showWaitSlice: false,
-			items: appendItems(state.items, action.items),
-			moreItemsAvailable: (!state.items.length && !action.items.length) || action.items.length > PAGE_SIZE,
-			lastUnreadItem: undefined
-		};
-	case SHOW_POPUP:
-		return {
-			...state,
-			lastUnreadItem: action.item
-		};
-	case HIDE_POPUP:
-		return {
-			...state,
-			lastUnreadItem: undefined
-		};
-	default:
-		return state;
+		case SHOW_WAIT_ALL:
+			return {
+				...state,
+				showWaitAll: true,
+				showErrorAll: false,
+				showWaitSlice: false,
+				showErrorSlice: false,
+				showDetails: false,
+				selectedItem: {}
+			};
+		case SHOW_ERROR_ALL:
+			return {
+				...state,
+				showWaitAll: false,
+				showErrorAll: true
+			};
+		case SHOW_WAIT_SLICE:
+			return {
+				...state,
+				showWaitSlice: true,
+				showErrorSlice: false
+			};
+		case SHOW_ERROR_SLICE:
+			return {
+				...state,
+				showWaitSlice: false,
+				showErrorSlice: true
+			};
+		case HIDE_ERROR_SLICE:
+			return {
+				...state,
+				showErrorSlice: false
+			};
+		case SHOW_DETAILS:
+			return {
+				...state,
+				showDetails: true,
+				selectedItem: action.item
+			};
+		case HIDE_DETAILS:
+			return {
+				...state,
+				showDetails: false
+			};
+		case LOADED:
+			return {
+				...state,
+				showWaitAll: false,
+				showWaitSlice: false,
+				items: appendItems(state.items, action.items),
+				moreItemsAvailable: (!state.items.length && !action.items.length) || action.items.length > PAGE_SIZE,
+				lastUnreadItem: undefined
+			};
+		case SHOW_POPUP:
+			return {
+				...state,
+				lastUnreadItem: action.item
+			};
+		case HIDE_POPUP:
+			return {
+				...state,
+				lastUnreadItem: undefined
+			};
+		default:
+			return state;
 	}
 };

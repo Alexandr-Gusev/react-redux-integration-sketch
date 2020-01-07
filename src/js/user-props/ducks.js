@@ -6,12 +6,12 @@ const defaultState = {};
 
 export const commonReducer = (state = defaultState, action) => {
 	switch (action.type) {
-	case SET_USER_PROPS:
-		return {
-			...state,
-			userProps: action.props
-		};
-	default:
-		return state;
+		case SET_USER_PROPS:
+			return {
+				...state,
+				userProps: action.props
+			};
+		default:
+			return state;
 	}
 };

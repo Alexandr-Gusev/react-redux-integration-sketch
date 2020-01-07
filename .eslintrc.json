@@ -24,11 +24,12 @@
 	],
 	"rules": {
 		"no-tabs": 0,
-		"indent": ["error", "tab"],
+		"indent": ["error", "tab", {"SwitchCase": 1}],
 		"react/jsx-indent": ["error", "tab"],
 		"react/jsx-indent-props": ["error", "tab"],
 		"quotes": ["error", "double"],
 		"func-style": ["error", "expression"],
+		"func-names": ["error", "never"],
 		"arrow-parens": ["error", "as-needed"],
 		"arrow-body-style": ["error", "as-needed"],
 		"comma-dangle": ["error", "never"],
@@ -44,6 +45,7 @@
 		"react/jsx-one-expression-per-line": 0,
 		"react/prop-types": 0,
 		"import/prefer-default-export": 0,
+		"space-before-function-paren": 0,
 		"camelcase": 0,
 		"max-len": 0,
 		"prefer-template": 0
