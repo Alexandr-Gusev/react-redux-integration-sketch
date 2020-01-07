@@ -3,6 +3,7 @@ const path = require("path")
 const {CleanWebpackPlugin} = require("clean-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
 module.exports = (env, argv) => {
 	const config = {
@@ -27,13 +28,7 @@ module.exports = (env, argv) => {
 							loader: "babel-loader",
 							options: {
 								compact: argv.mode === "production",
-								cacheDirectory: true
-							}
-						},
-						{
-							loader: "eslint-loader",
-							options: {
-								configFile: path.resolve(__dirname, ".eslintrc.js")
+								cacheDirectory: argv.mode !== "production"
 							}
 						}
 					]
@@ -58,18 +53,31 @@ module.exports = (env, argv) => {
 			new MiniCssExtractPlugin({filename: "bundle.css"})
 		]
 	}
-	if (argv.mode === "development") {
-		config.devtool = "source-map"
-	}
 	if (argv.mode === "production") {
+		config.module.rules.push({
+			enforce: "pre",
+			test: /\.js$/,
+			exclude: /node_modules/,
+			use: [
+				{
+					loader: "eslint-loader",
+					options: {
+						configFile: path.resolve(__dirname, ".eslintrc.js")
+					}
+				}
+			]
+		})
 		config.optimization = {
 			minimizer: [
 				new UglifyJsPlugin({
-					cache: true,
 					parallel: true
-				})
+				}),
+				new OptimizeCSSAssetsPlugin({})
 			]
 		}
+	}
+	if (argv.mode !== "production") {
+		config.devtool = "source-map"
 	}
 	return config
 }
