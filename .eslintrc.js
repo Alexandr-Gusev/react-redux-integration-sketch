@@ -22,7 +22,6 @@ module.exports = {
 		"react",
 		"import"
 	],
-	"ignorePatterns": ["node_modules/", "legacy-handlers.js"],
 	"rules": {
 		"no-tabs": 0,
 		"indent": ["error", "tab"],
