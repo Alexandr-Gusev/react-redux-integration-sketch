@@ -1,8 +1,8 @@
-import React, {useState} from "react"
+import React, {useState} from "react";
 
-import {connect} from "react-redux"
+import {connect} from "react-redux";
 
-import {List} from "react-virtualized"
+import {List} from "react-virtualized";
 
 export const Test = connect()(
 	() => {
@@ -10,7 +10,7 @@ export const Test = connect()(
 			<div style={style}>
 				react-virtualized List item {index}
 			</div>
-		)
+		);
 		return (
 			<List
 				width={300}
@@ -19,6 +19,6 @@ export const Test = connect()(
 				rowHeight={35}
 				rowRenderer={rowRenderer}
 			/>
-		)
+		);
 	}
-)
+);

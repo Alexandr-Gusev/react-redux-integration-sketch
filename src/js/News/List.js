@@ -1,16 +1,16 @@
-import React, {useEffect} from "react"
+import React, {useEffect} from "react";
 
-import {connect} from "react-redux"
+import {connect} from "react-redux";
 
-import {Button} from "@material-ui/core"
+import {Button} from "@material-ui/core";
 
-import {load, hideErrorSlice} from "./ducks"
-import {WaitAll} from "../utils/WaitAll"
-import {ErrorAll} from "../utils/ErrorAll"
-import {ListItem} from "./ListItem"
-import {WaitSlice} from "../utils/WaitSlice"
-import {ErrorSlice} from "../utils/ErrorSlice"
-import {qsTr} from "../utils/qsTr"
+import {load, hideErrorSlice} from "./ducks";
+import {WaitAll} from "../utils/WaitAll";
+import {ErrorAll} from "../utils/ErrorAll";
+import {ListItem} from "./ListItem";
+import {WaitSlice} from "../utils/WaitSlice";
+import {ErrorSlice} from "../utils/ErrorSlice";
+import {qsTr} from "../utils/qsTr";
 
 export const List = connect(
 	state => ({
@@ -41,14 +41,14 @@ export const List = connect(
 				() => {
 					setTimeout(
 						() => {
-							onErrorFadeOut()
+							onErrorFadeOut();
 						},
 						5000
-					)
+					);
 				}
-			)
+			);
 		}
-		const firstNewsId = items.length === 0 ? undefined : items[items.length - 1].id
+		const firstNewsId = items.length === 0 ? undefined : items[items.length - 1].id;
 		return (
 			<div>
 				<div style={{display: showWaitAll ? "" : "none"}}>
@@ -80,6 +80,6 @@ export const List = connect(
 					</div>
 				</div>
 			</div>
-		)
+		);
 	}
-)
+);

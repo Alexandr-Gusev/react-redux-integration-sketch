@@ -1,5 +1,5 @@
-import {abortReq} from "./core"
+import {abortReq} from "./core";
 
 export const abort = reqKey => () => {
-	abortReq(reqKey, "aborted")
-}
+	abortReq(reqKey, "aborted");
+};

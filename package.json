@@ -1,6 +1,6 @@
 {
 	"scripts": {
-		"lint": "node_modules/.bin/eslint -c .eslintrc.js src/js",
+		"lint": "node_modules/.bin/eslint -c .eslintrc.json src/js",
 		"bd": "webpack --config webpack.config.js --mode development",
 		"bp": "webpack --config webpack.config.js --mode production"
 	},

@@ -1,1 +1,1 @@
-export const qsTr = window.qsTr || (s => s)
+export const qsTr = window.qsTr || (s => s);

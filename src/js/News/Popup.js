@@ -1,12 +1,12 @@
-import React from "react"
+import React from "react";
 
-import {connect} from "react-redux"
+import {connect} from "react-redux";
 
-import {IconButton, Button} from "@material-ui/core"
-import CloseIcon from "@material-ui/icons/Close"
+import {IconButton, Button} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 
-import {hidePopup, showNews} from "./ducks"
-import {qsTr} from "../utils/qsTr"
+import {hidePopup, showNews} from "./ducks";
+import {qsTr} from "../utils/qsTr";
 
 export const Popup = connect(
 	state => ({
@@ -37,10 +37,10 @@ export const Popup = connect(
 						</div>
 					</div>
 					<div>
-						<img className="News-Popup-img" src="/img2/News-Popup.svg" />
+						<img className="News-Popup-img" src="/static/img2/News-Popup.svg" />
 					</div>
 				</div>
 			</div>
 		)
 	)
-)
+);

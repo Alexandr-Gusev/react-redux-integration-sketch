@@ -1,11 +1,11 @@
-import React from "react"
+import React from "react";
 
-import {connect} from "react-redux"
+import {connect} from "react-redux";
 
-import {Button} from "@material-ui/core"
+import {Button} from "@material-ui/core";
 
-import {hideDetails} from "./ducks"
-import {qsTr} from "../utils/qsTr"
+import {hideDetails} from "./ducks";
+import {qsTr} from "../utils/qsTr";
 
 export const Details = connect(
 	state => ({
@@ -26,7 +26,7 @@ export const Details = connect(
 			<div className="News-Details-header-suffix">
 				<div className="News-Details-short-text">
 					<div>
-						<img className="News-Details-quotes" src="/img2/quotes.svg" />
+						<img className="News-Details-quotes" src="/static/img2/quotes.svg" />
 					</div>
 					{item.ShortText}
 				</div>
@@ -38,4 +38,4 @@ export const Details = connect(
 			<div className="News-Details-time">{qsTr("Date") + ": " + item.created_at_local}</div>
 		</div>
 	)
-)
+);

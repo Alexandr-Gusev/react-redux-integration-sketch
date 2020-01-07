@@ -1,9 +1,9 @@
-const path = require("path")
+const path = require("path");
 
-const {CleanWebpackPlugin} = require("clean-webpack-plugin")
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 module.exports = (env, argv) => {
 	const config = {
@@ -52,7 +52,7 @@ module.exports = (env, argv) => {
 			new CleanWebpackPlugin(),
 			new MiniCssExtractPlugin({filename: "bundle.css"})
 		]
-	}
+	};
 	if (argv.mode === "production") {
 		config.module.rules.push({
 			enforce: "pre",
@@ -62,11 +62,11 @@ module.exports = (env, argv) => {
 				{
 					loader: "eslint-loader",
 					options: {
-						configFile: path.resolve(__dirname, ".eslintrc.js")
+						configFile: path.resolve(__dirname, ".eslintrc.json")
 					}
 				}
 			]
-		})
+		});
 		config.optimization = {
 			minimizer: [
 				new UglifyJsPlugin({
@@ -74,10 +74,10 @@ module.exports = (env, argv) => {
 				}),
 				new OptimizeCSSAssetsPlugin({})
 			]
-		}
+		};
 	}
 	if (argv.mode !== "production") {
-		config.devtool = "source-map"
+		config.devtool = "source-map";
 	}
-	return config
-}
+	return config;
+};

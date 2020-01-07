@@ -1,8 +1,8 @@
-const SET_USER_PROPS = "common/SET_USER_PROPS"
+const SET_USER_PROPS = "common/SET_USER_PROPS";
 
-export const setUserProps = props => ({type: SET_USER_PROPS, props})
+export const setUserProps = props => ({type: SET_USER_PROPS, props});
 
-const defaultState = {}
+const defaultState = {};
 
 export const commonReducer = (state = defaultState, action) => {
 	switch (action.type) {
@@ -10,8 +10,8 @@ export const commonReducer = (state = defaultState, action) => {
 		return {
 			...state,
 			userProps: action.props
-		}
+		};
 	default:
-		return state
+		return state;
 	}
-}
+};

@@ -1,8 +1,8 @@
-import React from "react"
+import React from "react";
 
-import {connect} from "react-redux"
+import {connect} from "react-redux";
 
-import {showDetails} from "./ducks"
+import {showDetails} from "./ducks";
 
 export const ListItem = connect(
 	null,
@@ -22,4 +22,4 @@ export const ListItem = connect(
 			</div>
 		</div>
 	)
-)
+);

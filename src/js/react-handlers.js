@@ -1,39 +1,39 @@
-import React from "react"
+import React from "react";
 
-import {combineReducers, createStore, applyMiddleware} from "redux"
-import thunk from "redux-thunk"
-import {render} from "react-dom"
-import {Provider} from "react-redux"
+import {combineReducers, createStore, applyMiddleware} from "redux";
+import thunk from "redux-thunk";
+import {render} from "react-dom";
+import {Provider} from "react-redux";
 
-import {ThemeProvider} from "@material-ui/core/styles"
+import {ThemeProvider} from "@material-ui/core/styles";
 
-import {commonReducer, setUserProps} from "./user-props"
-import {newsReducer, News, NewsPopup, load, showPopupIfNeeded} from "./News"
-import {Test} from "./Test"
+import {commonReducer, setUserProps} from "./user-props";
+import {newsReducer, News, NewsPopup, load, showPopupIfNeeded} from "./News";
+import {Test} from "./Test";
 
-import {mainTheme} from "./themes"
-import "../css/common.css"
+import {mainTheme} from "./themes";
+import "../css/common.css";
 
 const rootReducer = combineReducers({
 	common: commonReducer,
 	news: newsReducer
-})
+});
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 document.addEventListener(
 	"react-user-props",
 	e => {
 		switch (e.action) {
 		case "set":
-			store.dispatch(setUserProps(e.userProps))
-			break
+			store.dispatch(setUserProps(e.userProps));
+			break;
 		default:
-			console.error("Unexpected action: ", e.action)
-			break
+			console.error("Unexpected action: ", e.action);
+			break;
 		}
 	}
-)
+);
 
 document.addEventListener(
 	"react-News",
@@ -49,7 +49,7 @@ document.addEventListener(
 					</ThemeProvider>
 				</Provider>,
 				document.getElementById("News")
-			)
+			);
 			render(
 				<Provider store={store}>
 					<ThemeProvider theme={mainTheme}>
@@ -59,20 +59,20 @@ document.addEventListener(
 					</ThemeProvider>
 				</Provider>,
 				document.getElementById("News-Popup")
-			)
-			break
+			);
+			break;
 		case "update":
-			store.dispatch(load())
-			break
+			store.dispatch(load());
+			break;
 		case "show-popup-if-needed":
-			store.dispatch(showPopupIfNeeded())
-			break
+			store.dispatch(showPopupIfNeeded());
+			break;
 		default:
-			console.error("Unexpected action: ", e.action)
-			break
+			console.error("Unexpected action: ", e.action);
+			break;
 		}
 	}
-)
+);
 
 document.addEventListener(
 	"react-Test",
@@ -88,11 +88,11 @@ document.addEventListener(
 					</ThemeProvider>
 				</Provider>,
 				document.getElementById("Test")
-			)
-			break
+			);
+			break;
 		default:
-			console.error("Unexpected action: ", e.action)
-			break
+			console.error("Unexpected action: ", e.action);
+			break;
 		}
 	}
-)
+);

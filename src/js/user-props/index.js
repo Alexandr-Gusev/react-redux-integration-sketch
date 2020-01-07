@@ -1,1 +1,1 @@
-export {setUserProps, commonReducer} from "./ducks"
+export {setUserProps, commonReducer} from "./ducks";
