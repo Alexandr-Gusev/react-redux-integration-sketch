@@ -5,7 +5,8 @@
 		"es6": true
 	},
 	"extends": [
-		"airbnb"
+		"airbnb",
+		"airbnb/hooks"
 	],
 	"globals": {
 		"Atomics": "readonly",
@@ -20,7 +21,8 @@
 	},
 	"plugins": [
 		"react",
-		"import"
+		"import",
+		"react-hooks"
 	],
 	"rules": {
 		"no-tabs": 0,
