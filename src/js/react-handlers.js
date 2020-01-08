@@ -1,6 +1,6 @@
 import React from "react";
 
-import {combineReducers, createStore, applyMiddleware} from "redux";
+import {combineReducers, createStore, compose, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {render} from "react-dom";
 import {Provider} from "react-redux";
@@ -18,8 +18,12 @@ const rootReducer = combineReducers({
 	common: commonReducer,
 	news: newsReducer
 });
-
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(
+	rootReducer,
+	(process.env.NODE_ENV === "production" ? compose : (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose))(
+		applyMiddleware(thunk)
+	)
+);
 
 document.addEventListener(
 	"react-user-props",

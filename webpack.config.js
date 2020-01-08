@@ -4,6 +4,7 @@ const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = (env, argv) => {
 	const config = {
@@ -75,6 +76,7 @@ module.exports = (env, argv) => {
 				new OptimizeCSSAssetsPlugin({})
 			]
 		};
+		config.plugins.push(new CompressionPlugin());
 	}
 	if (argv.mode !== "production") {
 		config.devtool = "source-map";

@@ -7,7 +7,7 @@ import {List} from "react-virtualized";
 export const Test = connect()(
 	() => {
 		const rowRenderer = ({style, index}) => (
-			<div style={style}>
+			<div key={index} style={style}>
 				react-virtualized List item {index}
 			</div>
 		);
