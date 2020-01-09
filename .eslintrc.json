@@ -34,12 +34,10 @@
 		"func-names": ["error", "never"],
 		"arrow-parens": ["error", "as-needed"],
 		"arrow-body-style": ["error", "as-needed"],
-		"space-before-function-paren": ["error", "never"],
 		"comma-dangle": ["error", "never"],
 		"object-curly-spacing": ["error", "never"],
 		"object-curly-newline": 0,
 		"no-console": 0,
-		"no-unused-vars": 0,
 		"no-plusplus": 0,
 		"jsx-a11y/alt-text": 0,
 		"jsx-a11y/click-events-have-key-events": 0,
@@ -50,7 +48,8 @@
 		"import/prefer-default-export": 0,
 		"camelcase": 0,
 		"max-len": 0,
-		"prefer-template": 0
+		"prefer-template": 0,
+		"linebreak-style": 0
 	},
 	"settings": {
 		"react": {
